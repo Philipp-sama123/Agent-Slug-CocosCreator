@@ -21,10 +21,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass("PlayerController")
 export class PlayerController extends Component {
-  @property({ type: animation.AnimationController })
   public animationCtrl: animation.AnimationController;
-
-  @property({ type: RigidBody2D })
   public rigidBody: RigidBody2D;
 
   @property
@@ -68,9 +65,12 @@ export class PlayerController extends Component {
     }
   }
 
-  protected onLoad(): void {
+  protected onEnable(): void {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+  
+    this.animationCtrl = this.getComponent(animation.AnimationController);
+    this.rigidBody = this.getComponent(RigidBody2D);
   }
 
   update(deltaTime: number) {
@@ -201,19 +201,25 @@ export class PlayerController extends Component {
     }, 0.1);
 
     const direction = this._facingLeft ? 1 : -1;
-    const offset = new Vec3(this.bulletOffset.x * direction, this.bulletOffset.y, 0);
+    const offset = new Vec3(
+      this.bulletOffset.x * direction,
+      this.bulletOffset.y,
+      0
+    );
     const spawnPos = this.node.position.clone().add(offset);
-  
+
     const bullet = instantiate(this.bulletPrefab);
     bullet.setPosition(spawnPos);
     this.node.parent.addChild(bullet);
-  
+
     const bulletRB = bullet.getComponent(RigidBody2D);
     const bulletScript = bullet.getComponent(Bullet);
     if (direction === 1) {
-        const bulletScale = bullet.scale.clone();
-        bullet.setScale(new Vec3(-Math.abs(bulletScale.x), bulletScale.y, bulletScale.z));
-      }
+      const bulletScale = bullet.scale.clone();
+      bullet.setScale(
+        new Vec3(-Math.abs(bulletScale.x), bulletScale.y, bulletScale.z)
+      );
+    }
     bulletRB.linearVelocity = new Vec2(direction * bulletScript.speed, 0);
   }
 

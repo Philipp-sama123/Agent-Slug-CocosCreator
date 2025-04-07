@@ -529,12 +529,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "animationCtrl": {
-      "__id__": 11
-    },
-    "rigidBody": {
-      "__id__": 13
-    },
     "moveSpeed": 5,
     "jumpForce": 8,
     "groundCheckOffset": 0.2,
