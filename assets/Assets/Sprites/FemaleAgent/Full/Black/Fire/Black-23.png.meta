@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": -1.5,
-        "offsetY": -2.5,
-        "trimX": 13,
-        "trimY": 5,
-        "width": 35,
-        "height": 59,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -17.5,
-            -29.5,
+            -32,
+            -32,
             0,
-            17.5,
-            -29.5,
+            32,
+            -32,
             0,
-            -17.5,
-            29.5,
+            -32,
+            32,
             0,
-            17.5,
-            29.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            13,
-            59,
-            48,
-            59,
-            13,
             0,
-            48,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.203125,
             0,
-            0.75,
             0,
-            0.203125,
-            0.921875,
-            0.75,
-            0.921875
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -17.5,
-            -29.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            17.5,
-            29.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "c8815c39-75e2-4d75-b935-40b726929589@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,

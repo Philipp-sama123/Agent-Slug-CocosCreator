@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "317c447c-1bf3-41aa-a43a-c457992aae45",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "317c447c-1bf3-41aa-a43a-c457992aae45@6c48a",
+      "displayName": "GandalfHardcore Zombie v2 sheet-69",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "317c447c-1bf3-41aa-a43a-c457992aae45",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "317c447c-1bf3-41aa-a43a-c457992aae45@f9941",
+      "displayName": "GandalfHardcore Zombie v2 sheet-69",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 2.5,
+        "offsetY": -23,
+        "trimX": 18,
+        "trimY": 46,
+        "width": 33,
+        "height": 18,
+        "rawWidth": 64,
+        "rawHeight": 64,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -16.5,
+            -9,
+            0,
+            16.5,
+            -9,
+            0,
+            -16.5,
+            9,
+            0,
+            16.5,
+            9,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            18,
+            18,
+            51,
+            18,
+            18,
+            0,
+            51,
+            0
+          ],
+          "nuv": [
+            0.28125,
+            0,
+            0.796875,
+            0,
+            0.28125,
+            0.28125,
+            0.796875,
+            0.28125
+          ],
+          "minPos": [
+            -16.5,
+            -9,
+            0
+          ],
+          "maxPos": [
+            16.5,
+            9,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "317c447c-1bf3-41aa-a43a-c457992aae45@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "317c447c-1bf3-41aa-a43a-c457992aae45@6c48a"
+  }
+}

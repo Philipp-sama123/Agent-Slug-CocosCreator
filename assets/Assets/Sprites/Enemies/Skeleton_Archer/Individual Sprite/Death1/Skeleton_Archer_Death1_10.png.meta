@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "c83c45b4-4535-414b-ba88-b776ff29cfc8",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "c83c45b4-4535-414b-ba88-b776ff29cfc8@6c48a",
+      "displayName": "Skeleton_Archer_Death1_10",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "c83c45b4-4535-414b-ba88-b776ff29cfc8",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "c83c45b4-4535-414b-ba88-b776ff29cfc8@f9941",
+      "displayName": "Skeleton_Archer_Death1_10",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -2,
+        "offsetY": -27,
+        "trimX": 0,
+        "trimY": 55,
+        "width": 78,
+        "height": 16,
+        "rawWidth": 82,
+        "rawHeight": 72,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -39,
+            -8,
+            0,
+            39,
+            -8,
+            0,
+            -39,
+            8,
+            0,
+            39,
+            8,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            17,
+            78,
+            17,
+            0,
+            1,
+            78,
+            1
+          ],
+          "nuv": [
+            0,
+            0.013888888888888888,
+            0.9512195121951219,
+            0.013888888888888888,
+            0,
+            0.2361111111111111,
+            0.9512195121951219,
+            0.2361111111111111
+          ],
+          "minPos": [
+            -39,
+            -8,
+            0
+          ],
+          "maxPos": [
+            39,
+            8,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "c83c45b4-4535-414b-ba88-b776ff29cfc8@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "c83c45b4-4535-414b-ba88-b776ff29cfc8@6c48a"
+  }
+}

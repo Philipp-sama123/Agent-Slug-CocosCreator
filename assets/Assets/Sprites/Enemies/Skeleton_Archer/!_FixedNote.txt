@@ -1,0 +1,3 @@
+2024/08/06
+
+Fixed the Arrow Guard Sprite that was wrong.

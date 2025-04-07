@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "c77a6603-c23b-4477-be94-2d0d727442a0",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "c77a6603-c23b-4477-be94-2d0d727442a0@6c48a",
+      "displayName": "Female Damned-21",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "c77a6603-c23b-4477-be94-2d0d727442a0",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "c77a6603-c23b-4477-be94-2d0d727442a0@f9941",
+      "displayName": "Female Damned-21",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 2,
+        "offsetY": -13.5,
+        "trimX": 25,
+        "trimY": 27,
+        "width": 18,
+        "height": 37,
+        "rawWidth": 64,
+        "rawHeight": 64,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -9,
+            -18.5,
+            0,
+            9,
+            -18.5,
+            0,
+            -9,
+            18.5,
+            0,
+            9,
+            18.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            25,
+            37,
+            43,
+            37,
+            25,
+            0,
+            43,
+            0
+          ],
+          "nuv": [
+            0.390625,
+            0,
+            0.671875,
+            0,
+            0.390625,
+            0.578125,
+            0.671875,
+            0.578125
+          ],
+          "minPos": [
+            -9,
+            -18.5,
+            0
+          ],
+          "maxPos": [
+            9,
+            18.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "c77a6603-c23b-4477-be94-2d0d727442a0@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "c77a6603-c23b-4477-be94-2d0d727442a0@6c48a"
+  }
+}

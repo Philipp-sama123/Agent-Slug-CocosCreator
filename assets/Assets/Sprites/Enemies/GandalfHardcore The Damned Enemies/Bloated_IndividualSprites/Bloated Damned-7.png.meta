@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d@6c48a",
+      "displayName": "Bloated Damned-7",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d@f9941",
+      "displayName": "Bloated Damned-7",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 5.5,
+        "offsetY": -11,
+        "trimX": 25,
+        "trimY": 22,
+        "width": 23,
+        "height": 42,
+        "rawWidth": 62,
+        "rawHeight": 64,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -11.5,
+            -21,
+            0,
+            11.5,
+            -21,
+            0,
+            -11.5,
+            21,
+            0,
+            11.5,
+            21,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            25,
+            42,
+            48,
+            42,
+            25,
+            0,
+            48,
+            0
+          ],
+          "nuv": [
+            0.4032258064516129,
+            0,
+            0.7741935483870968,
+            0,
+            0.4032258064516129,
+            0.65625,
+            0.7741935483870968,
+            0.65625
+          ],
+          "minPos": [
+            -11.5,
+            -21,
+            0
+          ],
+          "maxPos": [
+            11.5,
+            21,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "80d7f9d8-64ea-433f-b9cb-d7c1aeed0c7d@6c48a"
+  }
+}

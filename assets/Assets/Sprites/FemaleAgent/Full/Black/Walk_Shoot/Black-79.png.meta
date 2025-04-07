@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": -2.5,
-        "offsetY": -2.5,
-        "trimX": 12,
-        "trimY": 5,
-        "width": 35,
-        "height": 59,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -17.5,
-            -29.5,
+            -32,
+            -32,
             0,
-            17.5,
-            -29.5,
+            32,
+            -32,
             0,
-            -17.5,
-            29.5,
+            -32,
+            32,
             0,
-            17.5,
-            29.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            12,
-            59,
-            47,
-            59,
-            12,
             0,
-            47,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.1875,
             0,
-            0.734375,
             0,
-            0.1875,
-            0.921875,
-            0.734375,
-            0.921875
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -17.5,
-            -29.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            17.5,
-            29.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "7c2af49a-2d16-4db2-875d-46228a842947@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,
