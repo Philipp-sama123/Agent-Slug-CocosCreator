@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": -2.5,
-        "offsetY": -14.5,
-        "trimX": 13,
-        "trimY": 29,
-        "width": 33,
-        "height": 35,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -16.5,
-            -17.5,
+            -32,
+            -32,
             0,
-            16.5,
-            -17.5,
+            32,
+            -32,
             0,
-            -16.5,
-            17.5,
+            -32,
+            32,
             0,
-            16.5,
-            17.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            13,
-            35,
-            46,
-            35,
-            13,
             0,
-            46,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.203125,
             0,
-            0.71875,
             0,
-            0.203125,
-            0.546875,
-            0.71875,
-            0.546875
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -16.5,
-            -17.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            16.5,
-            17.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "1b6bea30-6778-42a1-9fdb-3a193fadd3d1@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,

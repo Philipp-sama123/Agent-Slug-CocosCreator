@@ -44,7 +44,11 @@ export class PlayerController extends Component {
   private _canDoubleJump: boolean = true;
   private _originalScale: Vec3 = new Vec3();
   private _facingLeft: boolean = true;
-
+  
+  protected onLoad(): void {
+    this.animationCtrl = this.node.getComponent(animation.AnimationController);
+    this.rigidBody = this.node.getComponent(RigidBody2D);
+  }
   protected start() {
     // Store original scale for flipping
     Vec3.copy(this._originalScale, this.node.scale);
@@ -68,9 +72,6 @@ export class PlayerController extends Component {
   protected onEnable(): void {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
-  
-    this.animationCtrl = this.getComponent(animation.AnimationController);
-    this.rigidBody = this.getComponent(RigidBody2D);
   }
 
   update(deltaTime: number) {
@@ -248,5 +249,9 @@ export class PlayerController extends Component {
       this._isGrounded = false;
       console.log("Left Ground.");
     }
+  }
+
+  getHit() {
+    console.log("Enemy hit Player");
   }
 }

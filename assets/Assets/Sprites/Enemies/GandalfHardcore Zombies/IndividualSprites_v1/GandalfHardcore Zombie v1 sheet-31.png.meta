@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": 5.5,
-        "offsetY": -10.5,
-        "trimX": 28,
-        "trimY": 21,
-        "width": 19,
-        "height": 43,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -9.5,
-            -21.5,
+            -32,
+            -32,
             0,
-            9.5,
-            -21.5,
+            32,
+            -32,
             0,
-            -9.5,
-            21.5,
+            -32,
+            32,
             0,
-            9.5,
-            21.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            28,
-            43,
-            47,
-            43,
-            28,
             0,
-            47,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.4375,
             0,
-            0.734375,
             0,
-            0.4375,
-            0.671875,
-            0.734375,
-            0.671875
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -9.5,
-            -21.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            9.5,
-            21.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "12442be2-ee5b-419d-ae55-63f01378c249@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,

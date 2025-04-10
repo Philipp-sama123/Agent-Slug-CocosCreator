@@ -12,5 +12,23 @@
       "name": "GROUND",
       "value": 1
     }
-  ]
+  ],
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "Player"
+      },
+      {
+        "index": 2,
+        "name": "Enemy"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 15,
+      "1": 9,
+      "2": 1,
+      "3": 3
+    }
+  }
 }

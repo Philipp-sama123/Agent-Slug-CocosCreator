@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": 0.5,
-        "offsetY": -22.5,
-        "trimX": 14,
-        "trimY": 45,
-        "width": 37,
-        "height": 19,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -18.5,
-            -9.5,
+            -32,
+            -32,
             0,
-            18.5,
-            -9.5,
+            32,
+            -32,
             0,
-            -18.5,
-            9.5,
+            -32,
+            32,
             0,
-            18.5,
-            9.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            14,
-            19,
-            51,
-            19,
-            14,
             0,
-            51,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.21875,
             0,
-            0.796875,
             0,
-            0.21875,
-            0.296875,
-            0.796875,
-            0.296875
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -18.5,
-            -9.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            18.5,
-            9.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "00ffabdb-4303-4e01-9104-6e80afbcb303@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,

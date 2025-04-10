@@ -41,12 +41,12 @@
       "userData": {
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": 8.5,
-        "offsetY": -21.5,
-        "trimX": 18,
-        "trimY": 43,
-        "width": 45,
-        "height": 21,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 64,
+        "height": 64,
         "rawWidth": 64,
         "rawHeight": 64,
         "borderTop": 0,
@@ -60,17 +60,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -22.5,
-            -10.5,
+            -32,
+            -32,
             0,
-            22.5,
-            -10.5,
+            32,
+            -32,
             0,
-            -22.5,
-            10.5,
+            -32,
+            32,
             0,
-            22.5,
-            10.5,
+            32,
+            32,
             0
           ],
           "indexes": [
@@ -82,40 +82,40 @@
             3
           ],
           "uv": [
-            18,
-            21,
-            63,
-            21,
-            18,
             0,
-            63,
+            64,
+            64,
+            64,
+            0,
+            0,
+            64,
             0
           ],
           "nuv": [
-            0.28125,
             0,
-            0.984375,
             0,
-            0.28125,
-            0.328125,
-            0.984375,
-            0.328125
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
           ],
           "minPos": [
-            -22.5,
-            -10.5,
+            -32,
+            -32,
             0
           ],
           "maxPos": [
-            22.5,
-            10.5,
+            32,
+            32,
             0
           ]
         },
         "isUuid": true,
         "imageUuidOrDatabaseUri": "6440fb84-7246-4998-80f6-9b21635ce060@6c48a",
         "atlasUuid": "",
-        "trimType": "auto"
+        "trimType": "none"
       },
       "ver": "1.0.12",
       "imported": true,
