@@ -44,7 +44,7 @@ export class PlayerController extends Component {
   private _canDoubleJump: boolean = true;
   private _originalScale: Vec3 = new Vec3();
   private _facingLeft: boolean = true;
-  
+
   protected onLoad(): void {
     this.animationCtrl = this.node.getComponent(animation.AnimationController);
     this.rigidBody = this.node.getComponent(RigidBody2D);
@@ -60,11 +60,7 @@ export class PlayerController extends Component {
     // Setup collision events for ground detection
     const collider = this.getComponent(Collider2D);
     if (collider) {
-      collider.on(
-        Contact2DType.BEGIN_CONTACT,
-        this.onGroundCollisionEnter,
-        this
-      );
+      collider.on(Contact2DType.BEGIN_CONTACT, this.onCollisionEnter, this);
       collider.on(Contact2DType.END_CONTACT, this.onGroundCollisionExit, this);
     }
   }
@@ -107,11 +103,7 @@ export class PlayerController extends Component {
 
     const collider = this.getComponent(Collider2D);
     if (collider) {
-      collider.off(
-        Contact2DType.BEGIN_CONTACT,
-        this.onGroundCollisionEnter,
-        this
-      );
+      collider.off(Contact2DType.BEGIN_CONTACT, this.onCollisionEnter, this);
       collider.off(Contact2DType.END_CONTACT, this.onGroundCollisionExit, this);
     }
   }
@@ -224,11 +216,12 @@ export class PlayerController extends Component {
     bulletRB.linearVelocity = new Vec2(direction * bulletScript.speed, 0);
   }
 
-  private onGroundCollisionEnter(
+  private onCollisionEnter(
     selfCollider: Collider2D,
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
+    console.warn(otherCollider.name, "otherCollider.name");
     if (otherCollider.node.name === "GROUND") {
       // When the player lands, update state and reset animation parameters
       this._isGrounded = true;
