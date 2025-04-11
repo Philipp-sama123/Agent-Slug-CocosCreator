@@ -1,20 +1,14 @@
 import {
   _decorator,
-  animation,
+  Animation,
   Collider2D,
-  Color,
   Component,
-  Graphics,
   Node,
-  PhysicsRayResult,
-  PhysicsSystem2D,
   RigidBody2D,
   Vec2,
   Vec3,
 } from "cc";
-import { DEBUG } from "cc/env";
 import { PlayerController } from "./PlayerController";
-
 const { ccclass, property } = _decorator;
 
 @ccclass("EnemyController")
@@ -31,7 +25,7 @@ export class EnemyController extends Component {
   @property
   private _player: Node | null = null;
 
-  private _animationCtrl: animation.AnimationController;
+  private animationComp: Animation;
   private _rigidBody: RigidBody2D;
 
   private _isHit: boolean = false;
@@ -40,20 +34,24 @@ export class EnemyController extends Component {
   private _originalScale: Vec3 = new Vec3();
 
   onLoad() {
-    this._animationCtrl = this.getComponent(animation.AnimationController);
-    this._rigidBody = this.getComponent(RigidBody2D);
+    this.animationComp = this.node.getComponent(Animation);
+    this._rigidBody = this.node.getComponent(RigidBody2D);
   }
 
   start() {
-    // Find player by name or assign via property
-    this._player = this.node.parent.getChildByName("Player");
+    if (!this._player) {
+      this._player = this.node.parent.getChildByName("Player");
+    }
     this._rigidBody.fixedRotation = true;
 
     Vec3.copy(this._originalScale, this.node.scale);
     this._facingLeft = this._originalScale.x > 0;
+
+    this.animationComp.play("idle");
   }
 
   update(deltaTime: number) {
+    // If hit, don't update movement/attack animation.
     if (!this._player || this._isHit) return;
 
     const playerPos = this._player.worldPosition;
@@ -61,9 +59,23 @@ export class EnemyController extends Component {
     const distance = Vec3.distance(playerPos, myPos);
     const direction = new Vec2(playerPos.x - myPos.x, 0).normalize();
 
+    // If the enemy is far away from the player, play movement or idle animation.
     if (distance > this.attackRange) {
-      this.updateMovement(direction);
+      // Determine if movement is necessary or simply idle.
+      if (Math.abs(direction.x) > 0.01) {
+        this.updateMovement(direction);
+      } else {
+        // When there's no clear movement, play idle.
+        if (!this.animationComp.getState("idle")?.isPlaying) {
+          this.animationComp.play("idle");
+        }
+        this._rigidBody.linearVelocity = new Vec2(
+          0,
+          this._rigidBody.linearVelocity.y
+        );
+      }
     } else {
+      // Close enough to attack.
       this.updateAttack();
     }
   }
@@ -76,22 +88,23 @@ export class EnemyController extends Component {
     const distance = Vec3.distance(playerPos, myPos);
 
     if (distance < this.attackRange) {
-      this._player.getComponent(PlayerController).getHit();
+      this._player.getComponent(PlayerController)?.getHit();
     }
   }
 
   private updateMovement(direction: Vec2) {
     if (this._isAttacking) {
       this._isAttacking = false;
-      this._animationCtrl.setValue("IsAttacking", false);
     }
-    this._animationCtrl.setValue("IsMoving", true);
-
+    if (!this.animationComp.getState("move")?.isPlaying) {
+      this.animationComp.play("move");
+    }
     this._rigidBody.linearVelocity = new Vec2(
       direction.x * this.moveSpeed,
       this._rigidBody.linearVelocity.y
     );
 
+    // Flip the enemy if needed.
     if (
       (direction.x < 0 && !this._facingLeft) ||
       (direction.x > 0 && this._facingLeft)
@@ -108,13 +121,22 @@ export class EnemyController extends Component {
 
     if (!this._isAttacking) {
       this._isAttacking = true;
-      this._animationCtrl.setValue("IsAttacking", true);
-      this._animationCtrl.setValue("IsMoving", false);
+      this.animationComp.play("attack");
 
       this.scheduleOnce(() => {
         this._isAttacking = false;
-        this._animationCtrl.setValue("IsAttacking", false);
-      }, 1);
+
+        if (this._player) {
+          const playerPos = this._player.worldPosition;
+          const myPos = this.node.worldPosition;
+          const distance = Vec3.distance(playerPos, myPos);
+          if (distance > this.attackRange) {
+            this.animationComp.play("move");
+          } else {
+            this.animationComp.play("idle");
+          }
+        }
+      }, this.animationComp.getState("attack").duration);
     }
   }
 
@@ -131,22 +153,16 @@ export class EnemyController extends Component {
   }
 
   public getHit() {
-    // Set hit state and play hit animation
     this._isHit = true;
-    this._animationCtrl.setValue("IsHit", true);
-    this._animationCtrl.setValue("IsMoving", false);
-    this._animationCtrl.setValue("IsAttacking", false);
+    this.animationComp.play("hit");
 
-    // Immediately stop enemy movement by assigning a new zero vector
     this._rigidBody.linearVelocity = new Vec2(
       0,
       this._rigidBody.linearVelocity.y
     );
 
-    // Stop enemy for the duration of hitDuration then resume normal behavior
     this.scheduleOnce(() => {
       this._isHit = false;
-      this._animationCtrl.setValue("IsHit", false);
-    }, this.hitDuration);
+    }, this.animationComp.getState("hit").duration);
   }
 }

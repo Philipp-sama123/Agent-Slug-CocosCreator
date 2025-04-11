@@ -101,7 +101,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 480,
+      "x": 480.00000000000006,
       "y": 320.00000000000006,
       "z": 0
     },
@@ -761,26 +761,6 @@
     "_id": "91pwlgaKxAKqvBaMr2Ohsr"
   },
   {
-    "__type__": "cc.animation.AnimationController",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 18
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_graph": {
-      "__uuid__": "664c263f-5e53-4a4d-b4c0-3adec086a0dd",
-      "__expectedType__": "cc.animation.AnimationGraph"
-    },
-    "graph": {
-      "__uuid__": "664c263f-5e53-4a4d-b4c0-3adec086a0dd",
-      "__expectedType__": "cc.animation.AnimationGraph"
-    },
-    "_id": "f9USPGS8ZN5LSBuhiM/Kd1"
-  },
-  {
     "__type__": "cc.BoxCollider2D",
     "_name": "",
     "_objFlags": 0,
@@ -860,6 +840,58 @@
       "z": 0
     },
     "_id": "09tIMENu9ABpV0vMX+e/Wh"
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 18
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "playOnLoad": false,
+    "_clips": [
+      {
+        "__uuid__": "5a5a4dad-fdec-4911-94ca-1f8665be768e",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "d697439f-9f6c-4130-9418-9aa655b426c0",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "5d0a984c-5e35-462d-8437-29acfd7b2ef2",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "638fdb66-86aa-4dcf-95cb-e041255dcd4f",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "26969ef6-e214-43e1-bf06-eb76ed2e80fc",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "8bf53ccb-9c10-4d33-bf57-a01bb122f4d7",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "2b5594dc-d90e-48fc-89c7-6de2d7a0e10d",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "9e7f303e-6f84-4cb2-bb3e-35e01d6ea6fe",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "59b87a37-2594-40fb-9141-2b359185c189",
+        "__expectedType__": "cc.AnimationClip"
+      }
+    ],
+    "_defaultClip": null,
+    "_id": "6eUufT/BJFn7m/vFrEEqzF"
   },
   {
     "__type__": "cc.Node",
@@ -1188,26 +1220,6 @@
     "_id": "7dEB5GUWxP8INTpIa5AOar"
   },
   {
-    "__type__": "cc.animation.AnimationController",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 25
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_graph": {
-      "__uuid__": "3e799e4b-bbe1-407f-bfa2-ca7e772009d7",
-      "__expectedType__": "cc.animation.AnimationGraph"
-    },
-    "graph": {
-      "__uuid__": "3e799e4b-bbe1-407f-bfa2-ca7e772009d7",
-      "__expectedType__": "cc.animation.AnimationGraph"
-    },
-    "_id": "24lkAE0BxLtK3VcnHhALIh"
-  },
-  {
     "__type__": "cc.RigidBody2D",
     "_name": "",
     "_objFlags": 0,
@@ -1280,6 +1292,38 @@
     "_id": "90dbkroRNPA4BiDz8ftvqo"
   },
   {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 25
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "playOnLoad": false,
+    "_clips": [
+      {
+        "__uuid__": "772f2422-0e95-45ae-9b77-3f59516d7cff",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "e58663ce-6529-4f99-be14-1d7f16f073b8",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "20a83bd7-6bcd-46bb-8a5a-dbc64bba1c37",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "02550db5-02a6-42bd-ad2a-c366752ebf74",
+        "__expectedType__": "cc.AnimationClip"
+      }
+    ],
+    "_defaultClip": null,
+    "_id": "521UJJZOFN34J36f2pcbln"
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -1291,7 +1335,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
+      "width": 960.0000000000001,
       "height": 640
     },
     "_anchorPoint": {

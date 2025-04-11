@@ -1,6 +1,6 @@
 import {
   _decorator,
-  animation,
+  Animation,
   Component,
   EventKeyboard,
   input,
@@ -12,7 +12,6 @@ import {
   Collider2D,
   Contact2DType,
   IPhysics2DContact,
-  UITransform,
   Prefab,
   instantiate,
 } from "cc";
@@ -21,47 +20,45 @@ const { ccclass, property } = _decorator;
 
 @ccclass("PlayerController")
 export class PlayerController extends Component {
-  public animationCtrl: animation.AnimationController;
-  public rigidBody: RigidBody2D;
+  private animationComp: Animation;
+  private rigidBody: RigidBody2D;
 
   @property
-  moveSpeed: number = 5;
+  public moveSpeed: number = 5;
 
   @property
-  jumpForce: number = 8;
+  public jumpForce: number = 8;
 
   @property
-  groundCheckOffset: number = 0.2;
+  public groundCheckOffset: number = 0.2;
 
   @property({ type: Prefab, tooltip: "Bullet Prefab" })
-  bulletPrefab: Prefab;
+  public bulletPrefab: Prefab;
 
   @property({ type: Vec3, tooltip: "Bullet spawn offset from player center" })
-  bulletOffset: Vec3 = new Vec3(25, 5, 0); // Adjust default values as needed
+  public bulletOffset: Vec3 = new Vec3(25, 5, 0);
 
   private _horizontalInput: number = 0;
   private _isGrounded: boolean = true;
   private _canDoubleJump: boolean = true;
   private _originalScale: Vec3 = new Vec3();
   private _facingLeft: boolean = true;
+  private _isShooting: boolean = false;
 
   protected onLoad(): void {
-    this.animationCtrl = this.node.getComponent(animation.AnimationController);
+    this.animationComp = this.node.getComponent(Animation);
     this.rigidBody = this.node.getComponent(RigidBody2D);
   }
-  protected start() {
-    // Store original scale for flipping
-    Vec3.copy(this._originalScale, this.node.scale);
-    // Set _facingLeft based on the initial scale
-    this._facingLeft = this._originalScale.x < 0; // true if negative, false otherwise
 
+  protected start() {
+    Vec3.copy(this._originalScale, this.node.scale);
+    this._facingLeft = this._originalScale.x < 0;
     this.rigidBody.fixedRotation = true;
 
-    // Setup collision events for ground detection
     const collider = this.getComponent(Collider2D);
     if (collider) {
       collider.on(Contact2DType.BEGIN_CONTACT, this.onCollisionEnter, this);
-      collider.on(Contact2DType.END_CONTACT, this.onGroundCollisionExit, this);
+      collider.on(Contact2DType.END_CONTACT, this.onCollisionExit, this);
     }
   }
 
@@ -70,33 +67,38 @@ export class PlayerController extends Component {
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
   }
 
-  update(deltaTime: number) {
-    // Update horizontal velocity based on input
+  protected update(dt: number) {
     const targetVelocity = new Vec2(
       this._horizontalInput * this.moveSpeed,
       this.rigidBody.linearVelocity.y
     );
     this.rigidBody.linearVelocity = targetVelocity;
 
-    // Update movement animation
-    this.animationCtrl.setValue(
-      "IsMoving",
-      Math.abs(this._horizontalInput) > 0.1
-    );
-
-    // Update vertical velocity parameter for animation blending
-    const verticalVel = this.rigidBody.linearVelocity.y;
-    this.animationCtrl.setValue("VerticalVelocity", verticalVel);
-
-    // Manage falling state: if not grounded and vertical velocity is negative, trigger falling animation.
-    if (!this._isGrounded && verticalVel < 0) {
-      this.animationCtrl.setValue("IsFalling", true);
-      this.animationCtrl.setValue("IsJumping", false);
-      console.log("State: Falling");
-    } else {
-      this.animationCtrl.setValue("IsFalling", false);
+    if (!this._isShooting) {
+      if (!this._isGrounded) {
+        if (this.rigidBody.linearVelocity.y > 0) {
+          if (!this.animationComp.getState("jump")?.isPlaying) {
+            this.animationComp.play("jump");
+          }
+        } else {
+          if (!this.animationComp.getState("fall")?.isPlaying) {
+            this.animationComp.play("fall");
+          }
+        }
+      } else {
+        if (Math.abs(this._horizontalInput) > 0.1) {
+          if (!this.animationComp.getState("walk")?.isPlaying) {
+            this.animationComp.play("walk");
+          }
+        } else {
+          if (!this.animationComp.getState("idle")?.isPlaying) {
+            this.animationComp.play("idle");
+          }
+        }
+      }
     }
   }
+
   protected onDestroy(): void {
     input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.off(Input.EventType.KEY_UP, this.onKeyUp, this);
@@ -104,8 +106,104 @@ export class PlayerController extends Component {
     const collider = this.getComponent(Collider2D);
     if (collider) {
       collider.off(Contact2DType.BEGIN_CONTACT, this.onCollisionEnter, this);
-      collider.off(Contact2DType.END_CONTACT, this.onGroundCollisionExit, this);
+      collider.off(Contact2DType.END_CONTACT, this.onCollisionExit, this);
     }
+  }
+
+  private flipDirection() {
+    this._facingLeft = !this._facingLeft;
+    const newScale = new Vec3(
+      this._facingLeft ? -this._originalScale.x : this._originalScale.x,
+      this._originalScale.y,
+      this._originalScale.z
+    );
+    this.node.setScale(newScale);
+  }
+
+  private jump() {
+    if (this._isGrounded) {
+      this.rigidBody.linearVelocity = new Vec2(
+        this.rigidBody.linearVelocity.x,
+        this.jumpForce
+      );
+      this._isGrounded = false;
+      this._canDoubleJump = true;
+
+      this.animationComp.play("jump");
+      console.log("Primary Jump initiated.");
+    } else if (this._canDoubleJump) {
+      this.rigidBody.linearVelocity = new Vec2(
+        this.rigidBody.linearVelocity.x,
+        this.jumpForce * 0.8
+      );
+      this._canDoubleJump = false;
+
+      this.animationComp.play("jump");
+      console.log("Double Jump initiated.");
+    }
+  }
+
+  private shoot() {
+    let shootAnim = "shootIdle";
+
+    if (!this._isGrounded) {
+      shootAnim =
+        this.rigidBody.linearVelocity.y > 0 ? "shootJump" : "shootFall";
+    } else if (Math.abs(this._horizontalInput) > 0.1) {
+      shootAnim = "shootWalk";
+    }
+    this._isShooting = true;
+
+    this.animationComp.play(shootAnim);
+    console.log("Playing shoot animation: " + shootAnim);
+
+    const direction = this._facingLeft ? 1 : -1;
+    const offset = new Vec3(
+      this.bulletOffset.x * direction,
+      this.bulletOffset.y,
+      0
+    );
+    const spawnPos = this.node.position.clone().add(offset);
+
+    const bullet = instantiate(this.bulletPrefab);
+    bullet.setPosition(spawnPos);
+    this.node.parent.addChild(bullet);
+
+    const bulletRB = bullet.getComponent(RigidBody2D);
+    const bulletScript = bullet.getComponent(Bullet);
+
+    // flip the bullet if needed.
+    if (direction === 1) {
+      const bulletScale = bullet.scale.clone();
+      bullet.setScale(
+        new Vec3(-Math.abs(bulletScale.x), bulletScale.y, bulletScale.z)
+      );
+    }
+
+    bulletRB.linearVelocity = new Vec2(direction * bulletScript.speed, 0);
+    let durationDelay = this.animationComp.getState(shootAnim).duration;
+
+    this.scheduleOnce(() => {
+      this._isShooting = false;
+      if (!this._isGrounded) {
+        if (this.rigidBody.linearVelocity.y > 0) {
+          this.animationComp.play("jump");
+        } else {
+          this.animationComp.play("fall");
+        }
+      } else {
+        if (Math.abs(this._horizontalInput) > 0.1) {
+          this.animationComp.play("walk");
+        } else {
+          this.animationComp.play("idle");
+        }
+      }
+      console.log("Resumed default animation after shooting.");
+    }, durationDelay);
+  }
+
+  public getHit() {
+    console.log("Enemy hit Player");
   }
 
   private onKeyDown(event: EventKeyboard) {
@@ -136,104 +234,24 @@ export class PlayerController extends Component {
     }
   }
 
-  private flipDirection() {
-    this._facingLeft = !this._facingLeft;
-    const newScale = new Vec3(
-      this._facingLeft ? -this._originalScale.x : this._originalScale.x,
-      this._originalScale.y,
-      this._originalScale.z
-    );
-    this.node.setScale(newScale);
-  }
-
-  private jump() {
-    if (this._isGrounded) {
-      this.rigidBody.linearVelocity = new Vec2(
-        this.rigidBody.linearVelocity.x,
-        this.jumpForce
-      );
-      this._isGrounded = false;
-      this._canDoubleJump = true;
-
-      // Set animator parameters for jump state
-      this.animationCtrl.setValue("IsJumping", true);
-      this.animationCtrl.setValue("IsFalling", false);
-      console.log("Primary Jump initiated.");
-    } else if (this._canDoubleJump) {
-      this.rigidBody.linearVelocity = new Vec2(
-        this.rigidBody.linearVelocity.x,
-        this.jumpForce * 0.8
-      );
-      this._canDoubleJump = false;
-      this.animationCtrl.setValue("IsJumping", true);
-      this.animationCtrl.setValue("IsFalling", false);
-      console.log("Double Jump initiated.");
-    }
-  }
-
-  private shoot() {
-    let shootAnimVal = 0; // default: no shooting
-
-    if (this.animationCtrl.getValue("IsJumping")) {
-      shootAnimVal = 3; // jumping shoot
-    } else if (this.animationCtrl.getValue("IsFalling")) {
-      shootAnimVal = 4; // falling shoot
-    } else if (this.animationCtrl.getValue("IsMoving")) {
-      shootAnimVal = 2; // walk shoot
-    } else {
-      shootAnimVal = 1; // idle shoot
-    }
-
-    // Set the numeric shootState parameter
-    this.animationCtrl.setValue("ShootState", shootAnimVal);
-    console.log("Shooting state set to: " + shootAnimVal);
-
-    this.scheduleOnce(() => {
-      this.animationCtrl.setValue("ShootState", 0);
-      console.log("Shooting state reset to 0.");
-    }, 0.1);
-
-    const direction = this._facingLeft ? 1 : -1;
-    const offset = new Vec3(
-      this.bulletOffset.x * direction,
-      this.bulletOffset.y,
-      0
-    );
-    const spawnPos = this.node.position.clone().add(offset);
-
-    const bullet = instantiate(this.bulletPrefab);
-    bullet.setPosition(spawnPos);
-    this.node.parent.addChild(bullet);
-
-    const bulletRB = bullet.getComponent(RigidBody2D);
-    const bulletScript = bullet.getComponent(Bullet);
-    if (direction === 1) {
-      const bulletScale = bullet.scale.clone();
-      bullet.setScale(
-        new Vec3(-Math.abs(bulletScale.x), bulletScale.y, bulletScale.z)
-      );
-    }
-    bulletRB.linearVelocity = new Vec2(direction * bulletScript.speed, 0);
-  }
-
   private onCollisionEnter(
     selfCollider: Collider2D,
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    console.warn(otherCollider.name, "otherCollider.name");
     if (otherCollider.node.name === "GROUND") {
-      // When the player lands, update state and reset animation parameters
       this._isGrounded = true;
       this._canDoubleJump = true;
-      this.animationCtrl.setValue("IsJumping", false);
-      this.animationCtrl.setValue("IsFalling", false);
-      this.animationCtrl.setValue("VerticalVelocity", 0);
+      if (Math.abs(this._horizontalInput) > 0.1) {
+        this.animationComp.play("walk");
+      } else {
+        this.animationComp.play("idle");
+      }
       console.log("Landed on Ground. Reset jumping/falling states.");
     }
   }
 
-  private onGroundCollisionExit(
+  private onCollisionExit(
     selfCollider: Collider2D,
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
@@ -242,9 +260,5 @@ export class PlayerController extends Component {
       this._isGrounded = false;
       console.log("Left Ground.");
     }
-  }
-
-  getHit() {
-    console.log("Enemy hit Player");
   }
 }
