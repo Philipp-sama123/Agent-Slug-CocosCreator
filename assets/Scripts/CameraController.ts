@@ -10,7 +10,7 @@ export class CameraController extends Component {
   smoothSpeed: number = 0.125;
 
   @property({ type: Vec3 })
-  offset: Vec3 = new Vec3(0, 100, 0);
+  offset: Vec3 = new Vec3(0, 50, 0);
 
   update(dt: number) {
     if (this.target) {

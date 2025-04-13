@@ -51,17 +51,21 @@ export class PlayerController extends Component {
   @property({ type: Vec3, tooltip: "Bullet spawn offset from player center" })
   public bulletOffset: Vec3 = new Vec3(25, 5, 0);
 
+  @property({ type: Animation })
+  public bloodImpact: Animation;
+
   private _horizontalInput: number = 0;
   private _isGrounded: boolean = true;
   private _canDoubleJump: boolean = true;
   private _originalScale: Vec3 = new Vec3();
   private _facingLeft: boolean = true;
-  private _isShooting: boolean = false;
 
   // New properties to track reload state.
   private _isReloading: boolean = false;
   private _shotsFired: number = 0;
   private _isDodging: boolean = false;
+  private _isShooting: boolean = false;
+  private _isHit: boolean = false;
 
   protected onLoad(): void {
     this.animationComp = this.node.getComponent(Animation);
@@ -131,17 +135,7 @@ export class PlayerController extends Component {
     }
   }
 
-  private flipDirection() {
-    this._facingLeft = !this._facingLeft;
-    const newScale = new Vec3(
-      this._facingLeft ? -this._originalScale.x : this._originalScale.x,
-      this._originalScale.y,
-      this._originalScale.z
-    );
-    this.node.setScale(newScale);
-  }
-
-  private jump() {
+  public jump() {
     if (this._isGrounded) {
       this.rigidBody.linearVelocity = new Vec2(
         this.rigidBody.linearVelocity.x,
@@ -164,16 +158,24 @@ export class PlayerController extends Component {
     }
   }
 
-  private shoot() {
+  public shoot() {
     if (this._isReloading) {
       // If currently reloading, skip shooting.
       console.log("Currently reloading. Cannot shoot.");
       return;
     }
-
+    if (this._isShooting) {
+      console.log("Currently shooting. Cannot shoot.");
+      return;
+    }
     // If the player has fired the allowed number of shots, play reload animation
     if (this._shotsFired >= this.shotsBeforeReload) {
       this._isReloading = true;
+      this.rigidBody.linearVelocity = new Vec2(
+        0,
+        this.rigidBody.linearVelocity.y
+      );
+
       this.animationComp.play("reload");
       console.log("Reloading...");
 
@@ -199,7 +201,9 @@ export class PlayerController extends Component {
 
     // Proceed with shooting if not reloading.
     let shootAnim = "shootIdle";
-    if (!this._isGrounded) {
+    if (this._isDodging) {
+      shootAnim = "slideShoot";
+    } else if (!this._isGrounded) {
       shootAnim =
         this.rigidBody.linearVelocity.y > 0 ? "shootJump" : "shootFall";
     } else if (Math.abs(this._horizontalInput) > 0.1) {
@@ -243,8 +247,15 @@ export class PlayerController extends Component {
     // Schedule to return to the default animation after shooting.
     const durationDelay = this.animationComp.getState(shootAnim).duration;
     this.scheduleOnce(() => {
+      // Optional: Use a minimal delay or a manual ground check (e.g., using a downward raycast)
+      if (Math.abs(this.rigidBody.linearVelocity.y) < 0.1) {
+        this._isGrounded = true;
+      }
+
       this._isShooting = false;
-      if (!this._isGrounded) {
+      if (this._isDodging) {
+        this.animationComp.play("slide");
+      } else if (!this._isGrounded) {
         if (this.rigidBody.linearVelocity.y > 0) {
           this.animationComp.play("jump");
         } else {
@@ -257,11 +268,14 @@ export class PlayerController extends Component {
           this.animationComp.play("idle");
         }
       }
-      console.log("Resumed default animation after shooting.");
+      console.log(
+        "Resumed default animation after shooting. Grounded:",
+        this._isGrounded
+      );
     }, durationDelay);
   }
 
-  dodge() {
+  public dodge() {
     const dodgeForce = 50; // You can tweak this value for speed
     const direction = this._facingLeft ? 1 : -1;
 
@@ -290,7 +304,24 @@ export class PlayerController extends Component {
   }
 
   public getHit() {
+    if (this.bloodImpact) {
+      const hitDuration = this.bloodImpact.getState("bloodImpact").duration;
+      this.bloodImpact.play("bloodImpact");
+      this._isHit = true;
+      this.scheduleOnce(() => {
+        this._isHit = false;
+      }, hitDuration);
+    }
     console.log("Enemy hit Player");
+  }
+
+  public setHorizontalInput(value: number) {
+    this._horizontalInput = value;
+    if (!this._facingLeft && this._horizontalInput > 0) {
+      this.flipDirection();
+    } else if (this._facingLeft && this._horizontalInput < 0) {
+      this.flipDirection();
+    }
   }
 
   private onKeyDown(event: EventKeyboard) {
@@ -329,9 +360,9 @@ export class PlayerController extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    console.warn("otherCollider.group", otherCollider.group);
-       //  if (otherCollider.node.name === "GROUND") {
-  if (otherCollider.group === 1) {
+    console.warn("onCollisionEnter otherCollider.group", otherCollider.group);
+    //  if (otherCollider.node.name === "GROUND") {
+    if (otherCollider.group === 1) {
       // Default Group for now
       this.enterGrounded();
     }
@@ -342,11 +373,23 @@ export class PlayerController extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-     // if (otherCollider.node.name === "GROUND") {
-     if (otherCollider.group === 1) {
+    console.warn("onCollisionExit otherCollider.group", otherCollider.group);
+
+    // if (otherCollider.node.name === "GROUND") {
+    if (otherCollider.group === 1) {
       // Default Group for now
       this.exitGrounded();
     }
+  }
+
+  private flipDirection() {
+    this._facingLeft = !this._facingLeft;
+    const newScale = new Vec3(
+      this._facingLeft ? -this._originalScale.x : this._originalScale.x,
+      this._originalScale.y,
+      this._originalScale.z
+    );
+    this.node.setScale(newScale);
   }
 
   private exitGrounded() {
@@ -357,11 +400,6 @@ export class PlayerController extends Component {
   private enterGrounded() {
     this._isGrounded = true;
     this._canDoubleJump = true;
-    // if (Math.abs(this._horizontalInput) > 0.1) {
-    //   this.animationComp.play("walk");
-    // } else {
-    //   this.animationComp.play("idle");
-    // }
     console.log("Landed on Ground. Reset jumping/falling states.");
   }
 }
