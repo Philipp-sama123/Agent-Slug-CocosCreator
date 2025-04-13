@@ -13,6 +13,10 @@ export class MobileInputController extends Component {
   shootButton: Button;
   @property({ type: Button })
   slideButton: Button;
+  @property({ type: Button })
+  moveLeftButton: Button;
+  @property({ type: Button })
+  moveRightButton: Button;
   @property({ type: PlayerController })
   player: PlayerController;
 
@@ -32,6 +36,64 @@ export class MobileInputController extends Component {
       this.onShootButtonPressed,
       this
     );
+    this.moveLeftButton.node.on(
+      Node.EventType.TOUCH_START,
+      this.onMoveLeftButtonPressed,
+      this
+    );
+    this.moveLeftButton.node.on(
+      Node.EventType.TOUCH_END,
+      this.onMoveLeftButtonTouchEnd,
+      this
+    );
+    this.moveLeftButton.node.on(
+      Node.EventType.TOUCH_CANCEL,
+      this.onMoveLeftButtonTouchEnd,
+      this
+    );
+    this.moveRightButton.node.on(
+      Node.EventType.TOUCH_START,
+      this.onMoveRightButtonPressed,
+      this
+    );
+    this.moveRightButton.node.on(
+      Node.EventType.TOUCH_END,
+      this.onMoveRightButtonTouchEnd,
+      this
+    );
+    this.moveRightButton.node.on(
+      Node.EventType.TOUCH_CANCEL,
+      this.onMoveRightButtonTouchEnd,
+      this
+    );
+  }
+  onMoveRightButtonTouchEnd(
+    TOUCH_START: NodeEventType,
+    onMoveRightButtonTouchEnd: any,
+    arg2: this
+  ) {
+    this.player.moveEnd();
+  }
+  onMoveLeftButtonTouchEnd(
+    TOUCH_END: NodeEventType,
+    onMoveLeftButtonTouchEnd: any,
+    arg2: this
+  ) {
+    this.player.moveEnd();
+  }
+  onMoveLeftButtonPressed(
+    TOUCH_START: NodeEventType,
+    onMoveLeftButtonPressed: any,
+    arg2: this
+  ) {
+    this.player.moveLeft();
+  }
+  onMoveRightButtonPressed(
+    TOUCH_START: NodeEventType,
+    onMoveRightButtonPressed: any,
+    arg2: this
+  ) {
+    this.player.moveRight();
   }
   onShootButtonPressed(
     TOUCH_START: NodeEventType,

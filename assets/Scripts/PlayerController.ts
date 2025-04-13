@@ -316,26 +316,34 @@ export class PlayerController extends Component {
   }
 
   public setHorizontalInput(value: number) {
-    this._horizontalInput = value;
-    if (!this._facingLeft && this._horizontalInput > 0) {
-      this.flipDirection();
-    } else if (this._facingLeft && this._horizontalInput < 0) {
-      this.flipDirection();
-    }
+    // this._horizontalInput = value;
+    // if (!this._facingLeft && this._horizontalInput > 0) {
+    //   this.flipDirection();
+    // } else if (this._facingLeft && this._horizontalInput < 0) {
+    //   this.flipDirection();
+    // }
   }
-
+  moveRight() {
+    this._horizontalInput = 1;
+    if (!this._facingLeft) this.flipDirection();
+  }
+  moveLeft() {
+    this._horizontalInput = -1;
+    if (this._facingLeft) this.flipDirection();
+  }
+  moveEnd() {
+    this._horizontalInput = 0;
+  }
   private onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.SPACE:
         this.jump();
         break;
       case KeyCode.KEY_D:
-        this._horizontalInput = 1;
-        if (!this._facingLeft) this.flipDirection();
+        this.moveRight();
         break;
       case KeyCode.KEY_A:
-        this._horizontalInput = -1;
-        if (this._facingLeft) this.flipDirection();
+        this.moveLeft();
         break;
       case KeyCode.ENTER:
         this.shoot();
