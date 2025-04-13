@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "b165406a-743d-47c0-962d-f2f56dd6771b",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "b165406a-743d-47c0-962d-f2f56dd6771b@6c48a",
+      "displayName": "Weeping Willow3",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "b165406a-743d-47c0-962d-f2f56dd6771b",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "b165406a-743d-47c0-962d-f2f56dd6771b@f9941",
+      "displayName": "Weeping Willow3",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": -0.5,
+        "trimX": 4,
+        "trimY": 1,
+        "width": 216,
+        "height": 191,
+        "rawWidth": 224,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -108,
+            -95.5,
+            0,
+            108,
+            -95.5,
+            0,
+            -108,
+            95.5,
+            0,
+            108,
+            95.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            4,
+            191,
+            220,
+            191,
+            4,
+            0,
+            220,
+            0
+          ],
+          "nuv": [
+            0.017857142857142856,
+            0,
+            0.9821428571428571,
+            0,
+            0.017857142857142856,
+            0.9947916666666666,
+            0.9821428571428571,
+            0.9947916666666666
+          ],
+          "minPos": [
+            -108,
+            -95.5,
+            0
+          ],
+          "maxPos": [
+            108,
+            95.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b165406a-743d-47c0-962d-f2f56dd6771b@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "b165406a-743d-47c0-962d-f2f56dd6771b@6c48a"
+  }
+}
