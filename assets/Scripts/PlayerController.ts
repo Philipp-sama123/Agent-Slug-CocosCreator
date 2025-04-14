@@ -66,6 +66,7 @@ export class PlayerController extends Component {
   private _isDodging: boolean = false;
   private _isShooting: boolean = false;
   private _isHit: boolean = false;
+  private _isRunning: boolean;
 
   protected onLoad(): void {
     this.animationComp = this.node.getComponent(Animation);
@@ -94,7 +95,7 @@ export class PlayerController extends Component {
     if (this._isDodging) return;
 
     const targetVelocity = new Vec2(
-      this._horizontalInput * this.moveSpeed,
+      this._horizontalInput * (this._isRunning ? 2 : 1) * this.moveSpeed,
       this.rigidBody.linearVelocity.y
     );
     this.rigidBody.linearVelocity = targetVelocity;
@@ -113,8 +114,14 @@ export class PlayerController extends Component {
       }
     } else {
       if (Math.abs(this._horizontalInput) > 0.1) {
-        if (!this.animationComp.getState("walk")?.isPlaying) {
-          this.animationComp.play("walk");
+        if (this._isRunning) {
+          if (!this.animationComp.getState("run")?.isPlaying) {
+            this.animationComp.play("run");
+          }
+        } else {
+          if (!this.animationComp.getState("walk")?.isPlaying) {
+            this.animationComp.play("walk");
+          }
         }
       } else {
         if (!this.animationComp.getState("idle")?.isPlaying) {
@@ -323,16 +330,12 @@ export class PlayerController extends Component {
     //   this.flipDirection();
     // }
   }
-  moveRight() {
-    this._horizontalInput = 1;
-    if (!this._facingLeft) this.flipDirection();
-  }
-  moveLeft() {
-    this._horizontalInput = -1;
-    if (this._facingLeft) this.flipDirection();
-  }
-  moveEnd() {
-    this._horizontalInput = 0;
+  move(horizontalInput: number) {
+    this._horizontalInput = horizontalInput;
+
+    if (this._horizontalInput > 0 && !this._facingLeft) this.flipDirection();
+    else if (this._horizontalInput < 0 && this._facingLeft)
+      this.flipDirection();
   }
   private onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
@@ -340,10 +343,10 @@ export class PlayerController extends Component {
         this.jump();
         break;
       case KeyCode.KEY_D:
-        this.moveRight();
+        this.move(0.5);
         break;
       case KeyCode.KEY_A:
-        this.moveLeft();
+        this.move(-0.5);
         break;
       case KeyCode.ENTER:
         this.shoot();
@@ -351,14 +354,23 @@ export class PlayerController extends Component {
       case KeyCode.KEY_S:
         this.dodge();
         break;
+      case KeyCode.SHIFT_LEFT:
+        this.setIsRunning(true);
+        break;
     }
+  }
+  setIsRunning(isRunning: boolean) {
+    this._isRunning = isRunning;
   }
 
   private onKeyUp(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.KEY_D:
       case KeyCode.KEY_A:
-        this._horizontalInput = 0;
+        this.move(0);
+        break;
+      case KeyCode.SHIFT_LEFT:
+        this.setIsRunning(false);
         break;
     }
   }

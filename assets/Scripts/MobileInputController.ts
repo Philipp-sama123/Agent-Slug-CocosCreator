@@ -17,6 +17,8 @@ export class MobileInputController extends Component {
   moveLeftButton: Button;
   @property({ type: Button })
   moveRightButton: Button;
+  @property({ type: Button })
+  sprintButton: Button;
   @property({ type: PlayerController })
   player: PlayerController;
 
@@ -36,6 +38,7 @@ export class MobileInputController extends Component {
       this.onShootButtonPressed,
       this
     );
+    /**Movement */
     this.moveLeftButton.node.on(
       Node.EventType.TOUCH_START,
       this.onMoveLeftButtonPressed,
@@ -43,12 +46,12 @@ export class MobileInputController extends Component {
     );
     this.moveLeftButton.node.on(
       Node.EventType.TOUCH_END,
-      this.onMoveLeftButtonTouchEnd,
+      this.onMoveButtonTouchEnd,
       this
     );
     this.moveLeftButton.node.on(
       Node.EventType.TOUCH_CANCEL,
-      this.onMoveLeftButtonTouchEnd,
+      this.onMoveButtonTouchEnd,
       this
     );
     this.moveRightButton.node.on(
@@ -58,42 +61,65 @@ export class MobileInputController extends Component {
     );
     this.moveRightButton.node.on(
       Node.EventType.TOUCH_END,
-      this.onMoveRightButtonTouchEnd,
+      this.onMoveButtonTouchEnd,
       this
     );
     this.moveRightButton.node.on(
       Node.EventType.TOUCH_CANCEL,
-      this.onMoveRightButtonTouchEnd,
+      this.onMoveButtonTouchEnd,
+      this
+    );
+    this.sprintButton.node.on(
+      Node.EventType.TOUCH_START,
+      this.sprintButtonPressed,
+      this
+    );
+    this.moveRightButton.node.on(
+      Node.EventType.TOUCH_END,
+      this.sprintButtonReleased,
+      this
+    );
+    this.moveRightButton.node.on(
+      Node.EventType.TOUCH_CANCEL,
+      this.sprintButtonReleased,
       this
     );
   }
-  onMoveRightButtonTouchEnd(
-    TOUCH_START: NodeEventType,
-    onMoveRightButtonTouchEnd: any,
-    arg2: this
-  ) {
-    this.player.moveEnd();
-  }
-  onMoveLeftButtonTouchEnd(
+
+  sprintButtonReleased(
     TOUCH_END: NodeEventType,
-    onMoveLeftButtonTouchEnd: any,
+    sprintButtonReleased: any,
     arg2: this
   ) {
-    this.player.moveEnd();
+    this.player.setIsRunning(false);
+  }
+  sprintButtonPressed(
+    TOUCH_START: NodeEventType,
+    sprintButtonPressed: any,
+    arg2: this
+  ) {
+    this.player.setIsRunning(true);
+  }
+  onMoveButtonTouchEnd(
+    TOUCH_START: NodeEventType,
+    onRunLeftButtonPressed: any,
+    arg2: this
+  ) {
+    this.player.move(0);
   }
   onMoveLeftButtonPressed(
     TOUCH_START: NodeEventType,
     onMoveLeftButtonPressed: any,
     arg2: this
   ) {
-    this.player.moveLeft();
+    this.player.move(-0.5);
   }
   onMoveRightButtonPressed(
     TOUCH_START: NodeEventType,
     onMoveRightButtonPressed: any,
     arg2: this
   ) {
-    this.player.moveRight();
+    this.player.move(0.5);
   }
   onShootButtonPressed(
     TOUCH_START: NodeEventType,
