@@ -38,6 +38,9 @@ export class PlayerController extends Component {
 
   @property
   dodgeDuration: number = 3;
+  
+  @property
+  dodgeForce: number = 10;
 
   @property({ type: BoxCollider2D, tooltip: "Standard Collider" })
   standardCollider: BoxCollider2D;
@@ -67,7 +70,6 @@ export class PlayerController extends Component {
   private _isShooting: boolean = false;
   private _isHit: boolean = false;
   private _isRunning: boolean;
-
   protected onLoad(): void {
     this.animationComp = this.node.getComponent(Animation);
     this.rigidBody = this.node.getComponent(RigidBody2D);
@@ -283,12 +285,11 @@ export class PlayerController extends Component {
   }
 
   public dodge() {
-    const dodgeForce = 50; // You can tweak this value for speed
     const direction = this._facingLeft ? 1 : -1;
 
     // Apply a linear impulse in the facing direction
     this.rigidBody.applyLinearImpulseToCenter(
-      new Vec2(dodgeForce * direction, 0),
+      new Vec2(this.dodgeForce * direction, 0),
       true
     );
 

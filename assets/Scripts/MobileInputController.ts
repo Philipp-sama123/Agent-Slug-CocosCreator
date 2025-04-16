@@ -1,4 +1,4 @@
-import { _decorator, Button, Component, Node, NodeEventType } from "cc";
+import { Component, Button, _decorator, Node } from "cc";
 import { Joystick } from "./Joystick";
 import { PlayerController } from "./PlayerController";
 const { ccclass, property } = _decorator;
@@ -7,22 +7,38 @@ const { ccclass, property } = _decorator;
 export class MobileInputController extends Component {
   @property({ type: Joystick })
   joystick: Joystick;
+
   @property({ type: Button })
   jumpButton: Button;
+
   @property({ type: Button })
   shootButton: Button;
+
   @property({ type: Button })
   slideButton: Button;
+
   @property({ type: Button })
   moveLeftButton: Button;
+
   @property({ type: Button })
   moveRightButton: Button;
+
   @property({ type: Button })
   sprintButton: Button;
+
+  @property({ type: Button })
+  pauseButton: Button;
+
+  @property({ type: Node })
+  public pauseUI: Node;
+
   @property({ type: PlayerController })
   player: PlayerController;
 
+  private _isPaused: boolean = false;
+
   protected onLoad(): void {
+    // Jump, slide, shoot actions
     this.jumpButton.node.on(
       Node.EventType.TOUCH_START,
       this.onJumpButtonPressed,
@@ -38,7 +54,8 @@ export class MobileInputController extends Component {
       this.onShootButtonPressed,
       this
     );
-    /**Movement */
+
+    // Movement left
     this.moveLeftButton.node.on(
       Node.EventType.TOUCH_START,
       this.onMoveLeftButtonPressed,
@@ -54,6 +71,8 @@ export class MobileInputController extends Component {
       this.onMoveButtonTouchEnd,
       this
     );
+
+    // Movement right
     this.moveRightButton.node.on(
       Node.EventType.TOUCH_START,
       this.onMoveRightButtonPressed,
@@ -69,79 +88,69 @@ export class MobileInputController extends Component {
       this.onMoveButtonTouchEnd,
       this
     );
+
+    // Sprint actions should be tied to the sprintButton directly
     this.sprintButton.node.on(
       Node.EventType.TOUCH_START,
       this.sprintButtonPressed,
       this
     );
-    this.moveRightButton.node.on(
+    this.sprintButton.node.on(
       Node.EventType.TOUCH_END,
       this.sprintButtonReleased,
       this
     );
-    this.moveRightButton.node.on(
+    this.sprintButton.node.on(
       Node.EventType.TOUCH_CANCEL,
       this.sprintButtonReleased,
       this
     );
+
+    // Pause toggle
+    this.pauseButton.node.on(
+      Node.EventType.TOUCH_START,
+      this.togglePaused,
+      this
+    );
   }
 
-  sprintButtonReleased(
-    TOUCH_END: NodeEventType,
-    sprintButtonReleased: any,
-    arg2: this
-  ) {
-    this.player.setIsRunning(false);
-  }
-  sprintButtonPressed(
-    TOUCH_START: NodeEventType,
-    sprintButtonPressed: any,
-    arg2: this
-  ) {
+  sprintButtonPressed(event: Event): void {
     this.player.setIsRunning(true);
   }
-  onMoveButtonTouchEnd(
-    TOUCH_START: NodeEventType,
-    onRunLeftButtonPressed: any,
-    arg2: this
-  ) {
+
+  sprintButtonReleased(event: Event): void {
+    this.player.setIsRunning(false);
+  }
+
+  onMoveButtonTouchEnd(event: Event): void {
     this.player.move(0);
   }
-  onMoveLeftButtonPressed(
-    TOUCH_START: NodeEventType,
-    onMoveLeftButtonPressed: any,
-    arg2: this
-  ) {
+
+  onMoveLeftButtonPressed(event: Event): void {
     this.player.move(-0.5);
   }
-  onMoveRightButtonPressed(
-    TOUCH_START: NodeEventType,
-    onMoveRightButtonPressed: any,
-    arg2: this
-  ) {
+
+  onMoveRightButtonPressed(event: Event): void {
     this.player.move(0.5);
   }
-  onShootButtonPressed(
-    TOUCH_START: NodeEventType,
-    onShootButtonPressed: any,
-    arg2: this
-  ) {
+
+  onShootButtonPressed(event: Event): void {
     this.player.shoot();
   }
-  onSlideButtonPressed(
-    TOUCH_START: NodeEventType,
-    onSlideButtonPressed: any,
-    arg2: this
-  ) {
+
+  onSlideButtonPressed(event: Event): void {
     this.player.dodge();
   }
-  onJumpButtonPressed(
-    TOUCH_START: NodeEventType,
-    onJumpButtonPressed: any,
-    arg2: this
-  ) {
+
+  onJumpButtonPressed(event: Event): void {
     this.player.jump();
   }
+
+  togglePaused(event: Event): void {
+    this.pauseUI.active = !this._isPaused;
+    this._isPaused = !this._isPaused;
+  }
+
   protected update(dt: number): void {
     if (this.joystick) {
       this.player.setHorizontalInput(this.joystick.input.x);

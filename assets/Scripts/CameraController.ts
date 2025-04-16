@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Quat } from "cc";
+import { _decorator, Component, Node, Vec3, Quat, Camera } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("CameraController")
@@ -11,7 +11,9 @@ export class CameraController extends Component {
 
   @property({ type: Vec3 })
   offset: Vec3 = new Vec3(0, 50, 0);
-
+  protected start(): void {
+    //this.getComponent(Camera).orthoHeight = 100;
+  }
   update(dt: number) {
     if (this.target) {
       const targetPos = this.target.position.clone().add(this.offset);
